@@ -55,6 +55,10 @@ void UARTInput::setup() {
     lt = 0;
     rt = 0;
 
+    // Rumble
+    lastLeftRumble = 0;
+    lastRightRumble = 0;
+
     // Debug LED
     gpio_init(UART_DEBUG_LED_PIN);
     gpio_set_dir(UART_DEBUG_LED_PIN, GPIO_OUT);
@@ -208,4 +212,25 @@ void UARTInput::process() {
     gamepad->hasLeftAnalogStick  = true;
     gamepad->hasRightAnalogStick = true;
     gamepad->hasAnalogTriggers   = true;
+
+    // --- Rumble Telemetry (TX) ---
+    uint8_t currentLeftRumble = gamepad->auxState.haptics.leftActuator.intensity;
+    uint8_t currentRightRumble = gamepad->auxState.haptics.rightActuator.intensity;
+
+    if (currentLeftRumble != lastLeftRumble || currentRightRumble != lastRightRumble) {
+        lastLeftRumble = currentLeftRumble;
+        lastRightRumble = currentRightRumble;
+
+        // Construct 4-byte telemetry packet
+        uint8_t rumble_buffer[4];
+        rumble_buffer[0] = 0xBB;
+        rumble_buffer[1] = lastLeftRumble;
+        rumble_buffer[2] = lastRightRumble;
+        rumble_buffer[3] = rumble_buffer[0] ^ rumble_buffer[1] ^ rumble_buffer[2];
+
+        // Send over UART if writable to avoid blocking
+        if (uart_is_writable(UART_INPUT_PORT)) {
+            uart_write_blocking(UART_INPUT_PORT, rumble_buffer, 4);
+        }
+    }
 }

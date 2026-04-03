@@ -69,6 +69,10 @@ private:
     uint32_t validPacketCount;
     uint32_t badChecksumCount;
 
+    // Rumble state
+    uint8_t lastLeftRumble;
+    uint8_t lastRightRumble;
+
     // Read all available bytes from UART and parse complete packets
     void readUART();
 
