@@ -266,6 +266,7 @@ src/addons/spi_analog_ads1256.cpp
 src/addons/gamepad_usb_host.cpp
 src/addons/gamepad_usb_host_listener.cpp
 src/addons/tg16_input.cpp
+src/addons/uart_input.cpp
 src/animationstation/animation.cpp
 src/animationstation/animationstation.cpp
 src/animationstation/effects/chase.cpp
@@ -297,6 +298,7 @@ OneBitDisplay
 ArduinoJson
 rndis
 hardware_adc
+hardware_uart
 hardware_pwm
 PicoPeripherals
 WiiExtension
