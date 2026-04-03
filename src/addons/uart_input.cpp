@@ -213,9 +213,16 @@ void UARTInput::process() {
     gamepad->hasRightAnalogStick = true;
     gamepad->hasAnalogTriggers   = true;
 
+    Gamepad * processedGamepad = Storage::getInstance().GetProcessedGamepad();
+
+    // Enable haptics so the XInput USB Driver knows to populate intensity from host
+    processedGamepad->auxState.haptics.leftActuator.enabled = true;
+    processedGamepad->auxState.haptics.rightActuator.enabled = true;
+
     // --- Rumble Telemetry (TX) ---
-    uint8_t currentLeftRumble = gamepad->auxState.haptics.leftActuator.intensity;
-    uint8_t currentRightRumble = gamepad->auxState.haptics.rightActuator.intensity;
+    // Note: XInputDriver writes rumble data to processedGamepad, not the raw gamepad
+    uint8_t currentLeftRumble = processedGamepad->auxState.haptics.leftActuator.intensity;
+    uint8_t currentRightRumble = processedGamepad->auxState.haptics.rightActuator.intensity;
 
     if (currentLeftRumble != lastLeftRumble || currentRightRumble != lastRightRumble) {
         lastLeftRumble = currentLeftRumble;
