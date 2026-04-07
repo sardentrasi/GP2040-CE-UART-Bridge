@@ -16,8 +16,8 @@ Originally designed for bridging **GameSir Nova 2 Lite** / Sony DualShock contro
   - Asynchronous payload streaming directly from the Linux Kernel to UART (`ser.flush()` blocked).
   - Background `threading` listener perfectly isolates incoming serial Rumble pulses to Linux `evdev.ff` without stuttering the gamepad poll loop.
   - Handles 0-255 absolute axis range calibration efficiently to signed 16-bit RP2040 standards.
-  - No artificial software rate-limits, assuring sub-millisecond latencies for analog ticks.
-- **Web Configurator Remap:** The default Start (S2) hotkey has been moved to **GP04** so you can still access the GP2040-CE WebUI mappings.
+  - **No artificial software rate-limits:** Assures sub-millisecond latencies for analog ticks.
+- **Web Configurator Remap & Automation:** The default Start (S2) hotkey has been moved to **GP04**. You can open the native interface manually or completely automate the RNDIS enumeration via the remote GP-Injector Dashboard utilizing an intelligent GPIO tie-down logic.
 - **Debug Tools Included:** Python scripts for discovering and testing input parameters (`calibrate.py`), plus a built-in packet debugging mode.
 
 ## 🔌 Hardware Setup
@@ -33,8 +33,9 @@ _Note: A common Ground (GND) is **MANDATORY** for the UART to function correctly
 | **Pin 8 (GPIO 14)**     | **GP01 (RX)**         | Pi transmits data (TX) to RP2040 receive (RX).               |
 | **Pin 10 (GPIO 15)**    | **GP00 (TX)**         | Pi receives Rumble telemetry (RX) from RP2040 transmit (TX). |
 | **Pin 6 / 39 (GND)**    | **GND**               | Common Ground.                                               |
+| **Pin 12 (GPIO 18)**    | **GP04**              | Automates Web Configurator Bypass (Optional).                |
 
-**(Web Configurator):** GP00 is consumed by UART. Short **GP04** to GND while plugging in USB to enter the GP2040-CE Web Configurator at `http://192.168.7.1`.
+**(Web Configurator):** GP00 is consumed by UART. By default, GP-Injector dashboard manages the shorting of **GP04** to GND. You can also manually short it while plugging in USB to enter the GP2040-CE Web Configurator at `http://192.168.7.1`.
 
 **(Optional LED Debug):** GP25 on the RP2040 will violently blink every time a valid authenticated packet is received from the Pi.
 
