@@ -77,11 +77,23 @@ This utility will bypass the OS noise filters and print out exact `[BTN]` and `[
 
 ### 2. Start the Injection Bridge
 
-Start the main bridging application. It will auto-detect the gamepad defined in the script, compile the custom 15-byte protocol, perform XOR checksums, and spam the UART async.
+You have two options for running the host bridge on your Raspberry Pi:
+
+**Option A: Simple Bridge Script (`bridge2.py`)**
+A lightweight, terminal-only script for quickly streaming inputs directly to the UART. It auto-detects the gamepad, compiles the custom 15-byte protocol, and performs XOR checksums.
 
 ```bash
 python3 bridge2.py
 ```
+
+**Option B: Advanced GP-Injector (Recommended)**
+A full-featured engine with a responsive Web GUI. It provides a local dashboard at `http://localhost:8080/` where you can graphically manage Profiles, Button Remapping, Anti-Recoil, Turbo, and remotely trigger the Web Config bypass.
+
+```bash
+https://github.com/sardentrasi/gp-injector
+```
+
+_(See `README.md` on repository for automated service installation instructions)._
 
 If you experience any delay or drift on Xbox/Gamepad Testers, double-check your common ground wiring or review the noise ranges in `calibrate.py`.
 
