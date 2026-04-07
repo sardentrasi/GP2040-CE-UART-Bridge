@@ -89,11 +89,9 @@ python3 bridge2.py
 **Option B: Advanced GP-Injector (Recommended)**
 A full-featured engine with a responsive Web GUI. It provides a local dashboard at `http://localhost:8080/` where you can graphically manage Profiles, Button Remapping, Anti-Recoil, Turbo, and remotely trigger the Web Config bypass.
 
-```bash
-https://github.com/sardentrasi/gp-injector
-```
+👉 **[Download & Set Up GP-Injector](https://github.com/sardentrasi/gp-injector)**
 
-_(See `README.md` on repository for automated service installation instructions)._
+_(See the `README.md` in that repository for automated service installation instructions)._
 
 If you experience any delay or drift on Xbox/Gamepad Testers, double-check your common ground wiring or review the noise ranges in `calibrate.py`.
 
